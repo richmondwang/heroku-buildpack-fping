@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+# bin/detect <build-dir>
+
 mktmpdir() {
   dir=$(mktemp -t fakesu-$1-XXXX)
   rm -rf $dir
@@ -35,4 +38,4 @@ echo "fping installed" | indent
 
 cd $BUILD_DIR
 mkdir -p $BUILD_DIR/bin
-cp $CACHE_DIR/.tools/fping/bin/fping $BUILD_DIR/bin
+cp $CACHE_DIR/.tools/fping $BUILD_DIR/bin
