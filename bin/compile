@@ -1,0 +1,38 @@
+mktmpdir() {
+  dir=$(mktemp -t fakesu-$1-XXXX)
+  rm -rf $dir
+  mkdir -p $dir
+  echo $dir
+}
+
+function indent() {
+  c='s/^/       /'
+  case $(uname) in
+    Darwin) sed -l "$c";;
+    *)      sed -u "$c";;
+  esac
+}
+
+BUILDPACK_DIR=`cd $(dirname $0); cd ..; pwd`
+BUILD_DIR=$1
+CACHE_DIR=$2
+
+FPING_BUILD="$(mktmpdir fping)"
+
+mkdir -p $CACHE_DIR/.tools/fping
+
+export PATH=/sbin:/usr/sbin:$PATH:$CACHE_DIR/.tools/fping/bin
+
+echo "-----> Fetching and installing fping"
+cd $FPING_BUILD
+curl http://fping.org/dist/fping-3.10.tar.gz > fping-3.10.tar.gz
+tar xzf fping-3.10.tar.gz
+cd fping-3.10
+./configure --prefix=$CACHE_DIR/.tools/fping
+make
+make install
+echo "fping installed" | indent
+
+cd $BUILD_DIR
+mkdir -p $BUILD_DIR/bin
+cp $CACHE_DIR/.tools/fping/bin/fping $BUILD_DIR/bin
