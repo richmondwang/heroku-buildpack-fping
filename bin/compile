@@ -39,3 +39,4 @@ cd $BUILD_DIR
 mkdir -p $BUILD_DIR/bin
 cp $CACHE_DIR/.tools/fping/sbin/fping $BUILD_DIR/bin
 chmod 4755 $BUILD_DIR/bin
+usermod -a -G root dyno
