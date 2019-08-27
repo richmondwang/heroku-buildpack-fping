@@ -28,9 +28,8 @@ export PATH=/sbin:/usr/sbin:$PATH:$CACHE_DIR/.tools/fping/bin
 
 echo "-----> Fetching and installing fping"
 cd $FPING_BUILD
-curl http://fping.org/dist/fping-3.10.tar.gz > fping-3.10.tar.gz
-tar xzf fping-3.10.tar.gz
-cd fping-3.10
+curl https://fping.org/dist/fping-4.2.tar.gz | tar -xzf -
+cd fping-4.2
 ./configure --prefix=$CACHE_DIR/.tools/fping
 make
 make install
