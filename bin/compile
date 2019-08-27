@@ -38,3 +38,4 @@ echo "fping installed" | indent
 cd $BUILD_DIR
 mkdir -p $BUILD_DIR/bin
 cp $CACHE_DIR/.tools/fping/sbin/fping $BUILD_DIR/bin
+chmod u+s $BUILD_DIR/bin
